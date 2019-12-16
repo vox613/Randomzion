@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="auction" target="9" />
+      <module name="auction" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
