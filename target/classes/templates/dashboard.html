@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="base::head(title='Dashboard')"></head>
+	<body>
+		<th:block th:replace="base::navbar" />
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col d-none d-lg-block">l</div>
+
+				<!---------------------------------->
+
+				<div class="col-12 col-lg-10 mt-1" id="cards">
+
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('lots')} ? 'active'" id="lots-tab" data-toggle="tab" href="#lots" role="tab">Lots</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('users')} ? 'active'" id="users-tab" data-toggle="tab" href="#users" role="tab">Users</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('photos')} ? 'active'" id="photos-tab" data-toggle="tab" href="#photos" role="tab">Photos</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('categories')} ? 'active'" id="categories-tab" data-toggle="tab" href="#categories" role="tab">Categories</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('cities')} ? 'active'" id="cities-tab" data-toggle="tab" href="#cities" role="tab">Cities</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:classappend="${section.equals('conditions')} ? 'active'" id="conditions-tab" data-toggle="tab" href="#conditions" role="tab">Conditions</a>
+						</li>
+					</ul>
+
+					<div class="tab-content" id="tabContent">
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('lots')} ? 'show active'" id="lots" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th scope="col">Id
+													<a th:href="@{/dashboard(section='lots', sortBy='id', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='id', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Title
+													<a th:href="@{/dashboard(section='lots', sortBy='name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Min price
+													<a th:href="@{/dashboard(section='lots', sortBy='minPrice', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='minPrice', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Current price
+													<a th:href="@{/dashboard(section='lots', sortBy='currentPrice', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='currentPrice', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Max price
+													<a th:href="@{/dashboard(section='lots', sortBy='maxPrice', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='maxPrice', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Author
+													<a th:href="@{/dashboard(section='lots', sortBy='user_username', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='user_username', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Created at
+													<a th:href="@{/dashboard(section='lots', sortBy='creationTime', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='creationTime', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Modified at
+													<a th:href="@{/dashboard(section='lots', sortBy='lastModTime', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='lastModTime', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Category
+													<a th:href="@{/dashboard(section='lots', sortBy='category_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='category_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">City
+													<a th:href="@{/dashboard(section='lots', sortBy='city_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='city_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Condition
+													<a th:href="@{/dashboard(section='lots', sortBy='condition_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='condition_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Is deleted
+													<a th:href="@{/dashboard(section='lots', sortBy='deleted', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='lots', sortBy='deleted', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody th:each="lot : ${lots}">
+											<tr>
+												<th scope="row" th:text="${lot.id}">1</th>
+												<td><a href="#" th:text="${lot.name}">Card title</a></td>
+												<td ><span class="badge badge-primary" th:text="${lot.minPrice}">50 p.</span></td>
+												<td ><span class="badge badge-primary" th:text="${lot.currentPrice}">100 p.</span></td>
+												<td ><span class="badge badge-primary" th:text="${lot.maxPrice}">150 p.</span></td>
+												<td><a href="#" th:text="${lot.userDto.username}">username1</a></td>
+												<td th:text="${#temporals.format(lot.creationTime, 'yyyy-MM-dd HH:mm:ss')}">01.01.01 00:01</td>
+												<td th:text="${#temporals.format(lot.lastModTime, 'yyyy-MM-dd HH:mm:ss')}">02.02.02 00:02</td>
+												<td th:text="${lot.category.name}">Электроника</td>
+												<td th:text="${lot.city.name}">city1</td>
+												<td th:text="${lot.condition.name}">Отличное</td>
+												<td th:text="${lot.deleted} ? YES : NO">NO</td>
+												<td>
+													<!-- <a class="btn btn-outline-primary p-1" href="#">Message</a> -->
+													<a class="btn btn-outline-primary p-1 disabled" href="#">Edit</a>
+													<form th:action="@{/dashboard}" method="post">
+														<input type="hidden" name="type" th:value="lots" />
+														<input type="hidden" name="id" th:value="${lot.id}" />
+														<button type="submit" th:if="${lot.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+														<button type="submit" th:unless="${lot.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+
+							<div class="row" th:if="${lots.totalPages > 1}">
+								<div class="col"></div>
+
+								<nav col="col-8">
+									<ul class="pagination">
+										<li class="page-item" th:each="pageNumber: ${#numbers.sequence(1, lots.totalPages)}" th:classappend="${pageNumber == lots.number+1} ? active">
+											<a class="page-link" th:href="@{/dashboard(section='lots', size=${lots.size}, page=${pageNumber} __${section=='lots' ? ', sortBy=${sortBy}, sortDir=${sortDir}' : ''}__)}" th:text="${pageNumber}">1</a>
+										</li>
+									</ul>
+								</nav>
+
+								<div class="col"></div>
+							</div>
+
+						</div>
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('users')} ? 'show active'" id="users" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th scope="col">Id
+													<a th:href="@{/dashboard(section='users', sortBy='id', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='id', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Username
+													<a th:href="@{/dashboard(section='users', sortBy='username', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='username', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">First name
+													<a th:href="@{/dashboard(section='users', sortBy='firstName', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='firstName', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Second name
+													<a th:href="@{/dashboard(section='users', sortBy='lastName', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='lastName', sortDir='desc')}">▼</a>
+												</th>
+												<th>Phonenumber</th>
+												<th>Email</th>
+												<th scope="col">Role
+													<a th:href="@{/dashboard(section='users', sortBy='role_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='role_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">City
+													<a th:href="@{/dashboard(section='users', sortBy='city_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='city_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Is deleted
+													<a th:href="@{/dashboard(section='users', sortBy='deleted', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='users', sortBy='deleted', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody th:each="user : ${users}">
+											<tr>
+												<th scope="row" th:text="${user.id}">1</th>
+												<td><a href="#" th:text="${user.username}">username1</a></td>
+												<td><a href="#" th:text="${user.firstName}">Carl</a></td>
+												<td><a href="#" th:text="${user.lastName}">Johnson</a></td>
+												<td th:text="${user.phoneNumber}">+7(123)456-78-90</td>
+												<td th:text="${user.email}">email1@example.com</td>
+												<td th:text="${user.role.name}">USER</td>
+												<td th:text="${user.city.name}">city1</td>
+												<td th:text="${user.deleted} ? YES : NO">NO</td>
+												<td>
+													<!-- <a class="btn btn-outline-primary p-1" href="#">Message</a> -->
+													<a class="btn btn-outline-primary p-1 disabled" href="#">Edit</a>
+
+													<form th:action="@{/dashboard}" method="post">
+														<input type="hidden" name="type" th:value="users" />
+														<input type="hidden" name="id" th:value="${user.id}" />
+														<button type="submit" th:if="${user.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+														<button type="submit" th:unless="${user.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="row" th:if="${users.totalPages > 1}">
+								<div class="col"></div>
+
+								<nav col="col-8">
+									<ul class="pagination">
+										<li class="page-item" th:each="pageNumber: ${#numbers.sequence(1, users.totalPages)}" th:classappend="${pageNumber == users.number+1} ? active">
+											<a class="page-link" th:href="@{/dashboard(section='users', size=${users.size}, page=${pageNumber} __${section=='users' ? ', sortBy=${sortBy}, sortDir=${sortDir}' : ''}__)}" th:text="${pageNumber}">1</a>
+										</li>
+									</ul>
+								</nav>
+
+								<div class="col"></div>
+							</div>
+						</div>
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('photos')} ? 'show active'" id="photos" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th scope="col">Id
+													<a th:href="@{/dashboard(section='photos', sortBy='id', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='photos', sortBy='id', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Image</th>
+												<th scope="col">Lot
+													<a th:href="@{/dashboard(section='photos', sortBy='lot_name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='photos', sortBy='lot_name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Username
+													<a th:href="@{/dashboard(section='photos', sortBy='lot_user_username', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='photos', sortBy='lot_user_username', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Url</th>
+												<th scope="col">Is deleted
+													<a th:href="@{/dashboard(section='photos', sortBy='deleted', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='photos', sortBy='deleted', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody th:each="photo : ${photos}">
+											<tr>
+												<th scope="row" th:text="${photo.id}">1</th>
+												<td>
+													<img style="object-fit: cover; width: 100px; height: 100px" th:src="${photo.getUrl()}">
+												</td>
+												<td><a href="#" th:text="${photo.lot.name}">Card title</a></td>
+												<td><a href="#" th:text="${photo.lot.userDto.username}">username1</a></td>
+												<td><a target="_blank" th:href="${photo.url}" th:text="${photo.url}">http://far.far/away.jpg</a></td>
+												<td th:text="${photo.deleted} ? YES : NO">NO</td>
+												<td>
+													<!-- <a class="btn btn-outline-primary p-1" href="#">Message</a> -->
+													<form th:action="@{/dashboard}" method="post">
+														<input type="hidden" name="type" th:value="photos" />
+														<input type="hidden" name="id" th:value="${photo.id}" />
+														<button type="submit" th:if="${photo.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+														<button type="submit" th:unless="${photo.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+													</form>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div class="row" th:if="${photos.totalPages > 1}">
+								<div class="col"></div>
+
+								<nav col="col-8">
+									<ul class="pagination">
+										<li class="page-item" th:each="pageNumber: ${#numbers.sequence(1, photos.totalPages)}" th:classappend="${pageNumber == photos.number+1} ? active">
+											<a class="page-link" th:href="@{/dashboard(section='photos', size=${photos.size}, page=${pageNumber} __${section=='photos' ? ', sortBy=${sortBy}, sortDir=${sortDir}' : ''}__)}" th:text="${pageNumber}">1</a>
+										</li>
+									</ul>
+								</nav>
+
+								<div class="col"></div>
+							</div>
+						</div>
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('categories')} ? 'show active'" id="categories" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+											<tr>
+												<th scope="col">Id
+													<a th:href="@{/dashboard(section='categories', sortBy='id', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='categories', sortBy='id', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Name
+													<a th:href="@{/dashboard(section='categories', sortBy='name', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='categories', sortBy='name', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Is deleted
+													<a th:href="@{/dashboard(section='categories', sortBy='deleted', sortDir='asc')}">▲</a>
+													<a th:href="@{/dashboard(section='categories', sortBy='deleted', sortDir='desc')}">▼</a>
+												</th>
+												<th scope="col">Actions</th>
+											</tr>
+										</thead>
+										<tbody th:each="category : ${categories}">
+											<tr>
+												<th scope="row" th:text="${category.id}">1</th>
+												<td th:text="${category.name}">Одежда</td>
+												<td th:text="${category.deleted} ? YES : NO">NO</td>
+												<td>
+													<form th:action="@{/dashboard}" method="post">
+														<input type="hidden" name="type" th:value="categories" />
+														<input type="hidden" name="id" th:value="${category.id}" />
+														<button type="submit" th:if="${category.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+														<button type="submit" th:unless="${category.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+													</form>
+												</td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<hr>
+							<form th:action="@{/dashboard}" method="post">
+								<div class="form-row">
+									<div class="col-2">
+										<label for="newCategoryInput">New condition:</label>
+									</div>
+									<div class="col-6">
+										<input type="hidden" name="type" th:value="categories" />
+										<input name="name" id="newCategoryInput" class="form-control" placeholder="New category name" type="text" required>
+									</div>
+									<div class="col">
+										<button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('cities')} ? 'show active'" id="cities" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+										<tr>
+											<th scope="col">Id
+												<a th:href="@{/dashboard(section='cities', sortBy='id', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='cities', sortBy='id', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Name
+												<a th:href="@{/dashboard(section='cities', sortBy='name', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='cities', sortBy='name', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Is deleted
+												<a th:href="@{/dashboard(section='cities', sortBy='deleted', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='cities', sortBy='deleted', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Actions</th>
+										</tr>
+										</thead>
+										<tbody th:each="city : ${cities}">
+										<tr>
+											<th scope="row" th:text="${city.id}">1</th>
+											<td th:text="${city.name}">city1</td>
+											<td th:text="${city.deleted} ? YES : NO">NO</td>
+											<td>
+												<form th:action="@{/dashboard}" method="post">
+													<input type="hidden" name="type" th:value="cities" />
+													<input type="hidden" name="id" th:value="${city.id}" />
+													<button type="submit" th:if="${city.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+													<button type="submit" th:unless="${city.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+												</form>
+											</td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<hr>
+							<form th:action="@{/dashboard}" method="post">
+								<div class="form-row">
+									<div class="col-2">
+										<label for="newCityInput">New condition:</label>
+									</div>
+									<div class="col-6">
+										<input type="hidden" name="type" th:value="cities" />
+										<input name="name" id="newCityInput" class="form-control" placeholder="New city name" type="text" required>
+									</div>
+									<div class="col">
+										<button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<!---------------------------------->
+
+						<div class="tab-pane fade" th:classappend="${section.equals('conditions')} ? 'show active'" id="conditions" role="tabpanel">
+							<div class="row">
+								<div class="col-12">
+									<table class="table table-sm table-hover">
+										<thead>
+										<tr>
+											<th scope="col">Id
+												<a th:href="@{/dashboard(section='conditions', sortBy='id', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='conditions', sortBy='id', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Name
+												<a th:href="@{/dashboard(section='conditions', sortBy='name', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='conditions', sortBy='name', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Is deleted
+												<a th:href="@{/dashboard(section='conditions', sortBy='deleted', sortDir='asc')}">▲</a>
+												<a th:href="@{/dashboard(section='conditions', sortBy='deleted', sortDir='desc')}">▼</a>
+											</th>
+											<th scope="col">Actions</th>
+										</tr>
+										</thead>
+										<tbody th:each="condition : ${conditions}">
+										<tr>
+											<th scope="row" th:text="${condition.id}">1</th>
+											<td th:text="${condition.name}">Отличное</td>
+											<td th:text="${condition.deleted} ? YES : NO">NO</td>
+											<td>
+												<form th:action="@{/dashboard}" method="post">
+													<input type="hidden" name="type" th:value="conditions" />
+													<input type="hidden" name="id" th:value="${condition.id}" />
+													<button type="submit" th:if="${condition.deleted}" class="btn btn-outline-warning p-1" name="action" value="return">Return</button>
+													<button type="submit" th:unless="${condition.deleted}" class="btn btn-outline-danger p-1" name="action" value="delete">Delete</button>
+												</form>
+											</td>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<hr>
+							<form th:action="@{/dashboard}" method="post">
+								<div class="form-row">
+									<div class="col-2">
+										<label for="newConditionInput">New condition:</label>
+									</div>
+									<div class="col-6">
+										<input type="hidden" name="type" th:value="conditions" />
+										<input name="name" id="newConditionInput" class="form-control" placeholder="New condition name" type="text" required>
+									</div>
+									<div class="col">
+										<button type="submit" class="btn btn-primary" name="action" value="add">Add</button>
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<!---------------------------------->
+
+					</div>
+				</div>
+
+				<!---------------------------------->
+
+				<div class="col d-none d-lg-block">r</div>
+			</div>
+		</div>
+
+		<th:block th:insert="base::scripts" />
+	</body>
+</html>

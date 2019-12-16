@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base::head(title='Page Not Found')"></head>
+<body>
+<th:block th:replace="base::navbar" />
+<style>
+    html,body{
+        height:100%;
+    }
+    h1{
+        font-size: 72px;
+    }
+    h2{
+        font-size: 64px;
+    }
+</style>
+<div class="container-fluid h-100">
+    <div class="row h-50">
+        <div class="col my-auto">
+            <h1 class="text-danger text-center">404☹</h1>
+            <h2 class="text-center">Страница не найдена</h2>
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="base::scripts" />
+</body>
+</html>

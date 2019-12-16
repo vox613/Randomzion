@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="base::head(title='Account page')"></head>
+
+<body>
+<th:block th:replace="base::navbar"/>
+
+<div class="row">
+    <div class="col d-none d-lg-block">L</div>
+
+    <div class="col-12 col-md-5" id="cards">
+        <th:block th:each="lot : ${lots}">
+            <div class="card mt-2" style="box-shadow: 3px 3px 5px LightGrey; height: 150px">
+                <div class="row no-gutters">
+                    <div class="col-4" style="max-height:150px">
+                        <a href="#">
+                            <img class="card-img h-100"
+                                 src="https://media1.tenor.com/images/b9c59363e7dd35cb7c19d8736b102d99/tenor.gif?itemid=13730968"
+                                 style="object-fit: cover">
+                        </a>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5 class="card-title">
+                                            <a class="text-dark" href="#" th:text="${lot.name}">Card title</a>
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <h5 class="card-title">
+                                            <a class="text-info" href="#"
+                                               th:text="${lot.getUser().getUsername()}">Username</a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="card-text text-truncate" th:text="${lot.description}">
+                                Some quick example text to build on the card title and
+                                make up the bulk of the card's content.
+                            </p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <span class="badge badge-primary"
+                                              th:text="${lot.currentPrice} + ' р.'">100 p.</span>
+                                    </div>
+                                    <div class="col-4">
+                                                <span class="badge badge-danger"
+                                                      th:text="${lot.category.name}"> Category </span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge badge-info" th:text="${lot.creationTime}">Created at</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        <th:block th:if="${lots.size()==0}">
+            <div>
+                <h5 class="card-body">
+                    <div class="text-dark">You have not added any lots yet</div>
+                </h5>
+            </div>
+        </th:block>
+    </div>
+
+    <div class="col-12 col-md-3" id="userInfo">
+        <div class="card-body">
+            <div class="container">
+                <div class="col">
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-dark" th:text="${user.getUsername()}">Card title</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getCity().getName()}">City</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getEmail()}">E-MAIL</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getPhoneNumber()}">Phone</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getFirstName()}">First name</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getLastName()}">Last name</div>
+                        </h5>
+                    </div>
+                    <div class="row-6">
+                        <h5 class="card-title">
+                            <div class="text-info" th:text="${user.getWallet()}">Last name</div>
+                        </h5>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="row" th:each="purchase : ${purchases}">
+            <p>purchase.id:<span th:text="${purchase.id}"></span></p>
+            <p>purchase.buyer:<span th:text="${purchase.buyer.toString()}"></span></p>
+            <p>purchase.item:<span th:text="${purchase.item.toString()}"></span></p>
+            <p>purchase.purchaseTime:<span th:text="${purchase.purchaseTime.toString()}"></span></p>
+        </div>
+
+
+    <div class="col d-none d-lg-block">R</div>
+</div>
+<th:block th:insert="base::scripts" />
+</body>
+</html>

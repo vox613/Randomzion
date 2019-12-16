@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:fragment="head(title)">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title th:text="${title}"></title>
+
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+
+	</head>
+	<body>
+		<nav th:fragment="navbar" class="navbar navbar-dark bg-dark justify-content-between navbar-expand-sm">
+			<a class="navbar-brand" th:href="@{/}">Randomzione</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+<!--					<a class="nav-item nav-link" href="#">Browse</a>-->
+					<a class="nav-item nav-link" th:href="@{/add/lot}">Создать лот</a>
+					<div sec:authorize="hasAuthority('admin')">
+						<a class="nav-item nav-link" th:href="@{/dashboard}">Страница администратора</a>
+					</div>
+				</div>
+				<hr>
+				<div th:switch="${#authorization.expr('isAuthenticated()')}">
+					<div class="navbar-nav ml-auto" th:case="${true}">
+						<span class="navbar-text mr-2">Вы вошли как:</span>
+						<a th:href="@{/account}" class="username-acc-link">
+							<span class="navbar-brand mb-1" th:text="${#authorization.authentication.name}"></span>
+						</a>
+
+
+						<!-- Button trigger modal -->
+						<button class="btn btn-danger nav-item btn-rounded py-1 pl-3" data-toggle="modal" data-target="#exampleModalCenter" type="button" onclick="this.blur();">
+							Выйти
+							<i class="fas fa-door-open text-white rounded-circle bg-danger" style="padding: 7px 6px;"></i>
+						</button>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Подтверждение выхода</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										Вы уверены что хотите выйти?&#9785;
+									</div>
+									<div class="modal-footer">
+										<form method="POST" th:action="@{/logout}">
+											<button type="submit" class="btn btn-secondary">Да</button>
+										</form>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Нет</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="navbar-nav ml-auto" th:case="${false}">
+						<a class="btn-primary btn-rounded px-3 pt-2 mr-2"  th:href="@{/login}">Вход</a>
+						<span class="navbar-text navbar-light mr-2"> или </span>
+						<a class="btn-warning btn-rounded px-3 pt-2" th:href="@{/register}">Регистрация</a>
+					</div>
+				</div>
+			</div>
+
+		</nav>
+		<div th:fragment="card" class="card mt-2" style="box-shadow: 3px 3px 5px LightGrey; height: 150px">
+			<div class="row no-gutters">
+				<div class="col-4" style="max-height:150px">
+					<a href="#">
+						<img src="https://via.placeholder.com/300x200" class="card-img h-100" style="object-fit: cover">
+					</a>
+				</div>
+				<div class="col-8">
+					<div class="card-body">
+						<h5 class="card-title"><a href="#" class="text-dark">Card title</a></h5>
+						<p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<h4><span class="badge badge-primary">100 p.</span></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<th:block th:fragment="scripts">
+			<script src="/js/jquery-3.2.1.slim.min.js" type="text/javascript"></script>
+			<script src="/js/popper.min.js" type="text/javascript"></script>
+			<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+			<script src="/js/dist/jquery.inputmask.js" type="text/javascript"></script>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$(":input").inputmask();
+				});
+			</script>
+		</th:block>
+	</body>
+</html>

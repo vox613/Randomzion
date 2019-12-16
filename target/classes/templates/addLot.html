@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="base::head(title='Add new lot')"></head>
+
+<body>
+	<th:block th:replace="base::navbar" />
+	
+	<div class="container-fluid">
+		<div class="form-row">
+			<div class="col-md-2">
+				<p class="text-right"> </p>
+			</div>
+			<div class="col-md">
+				<form method="POST" th:action="@{/add/lot}" th:object="${newLot}" enctype="multipart/form-data">
+					<div class="form-group my-4">
+	  					<label for="lotName" class="font-weight-bold pl-2">Название лота</label>
+	    				<input id="lotName" th:field="*{name}" type="text" class="form-control" placeholder="Введите название лота">
+						<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+	  				</div>
+					<div class="form-group mb-4">
+				    	<label for="lotDescription" class="font-weight-bold pl-2">Описание лота</label>
+				    	<textarea id="lotDescription" th:field="*{description}" class="form-control" rows="3" placeholder="Введите описание лота"></textarea>
+						<span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</span>
+					</div>
+					<div class="form-row mb-4">
+						<div class="col-4">
+							<label for="lotCondition" class="font-weight-bold pl-2">Выберите состояние</label>
+							<select id="lotCondition" th:field="*{condition}" class="form-control">
+								<option th:each="condition : ${conditions}"
+										th:selected="${condition.id == 1}"
+										th:value="${condition.id}"
+										th:text="${condition.name}">Condition name
+								</option>
+							</select>
+						</div>
+						<div class="col-4">
+							<label for="lotCategory" class="font-weight-bold pl-2">Выберите категорию</label>
+							<select id="lotCategory" th:field="*{category}" class="form-control">
+								<option th:each="category : ${categories}"
+										th:selected="${category.id == 1}"
+										th:value="${category.id}"
+										th:text="${category.name}">Category name
+								</option>
+							</select>
+						</div>
+						<div class="col-4">
+							<label for="lotCity" class="font-weight-bold pl-2">Выберите город</label>
+							<select id="lotCity" th:field="*{city}" class="form-control">
+								<option th:each="city : ${cities}"
+										th:selected="${city.id == 1}"
+										th:value="${city.id}"
+										th:text="${city.name}">City name
+								</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="mb-4">
+						<input type="file" name="lotImages" multiple>
+					</div>
+
+					<div class="form-row">
+						<div class="col-4">
+							<p class="font-weight-bold pl-2">Минимальная цена</p>
+						</div>
+						<div class="col-4">
+							<p class="font-weight-bold pl-2">Текущая цена цена</p>
+						</div>
+						<div class="col-4">
+							<p class="font-weight-bold pl-2">Максимальная цена</p>
+						</div>
+					</div>
+
+					<div class="form-row mb-4">
+						<div class="col-4 input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">&#x20bd</span>
+							</div>
+							<input id="minPrice" th:field="*{minPrice}" type="number" placeholder="Минимальная цена" class="form-control">
+						</div>
+						<div class="col-4 input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">&#x20bd</span>
+							</div>
+							<input id="currentPrice" th:field="*{currentPrice}" type="number" placeholder="Текущая цена" class="form-control">
+						</div>
+						<div class="col-4 input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">&#x20bd</span>
+							</div>
+							<input id="maxPrice" th:field="*{maxPrice}" type="number" placeholder="Максимальная цена" class="form-control">
+						</div>
+						<div class="w-100"></div>
+						<div class="col-4 text-danger" style="font-size: 12px;" th:if="${#fields.hasErrors('minPrice')}" th:errors="*{minPrice}">Name Error</div>
+						<div class="col-4 text-success" th:if="${!#fields.hasErrors('minPrice')}"></div>
+						<div class="col-4 text-danger" style="font-size: 12px;" th:if="${#fields.hasErrors('currentPrice')}" th:errors="*{currentPrice}">Name Error</div>
+						<div class="col-4 text-success" th:if="${!#fields.hasErrors('currentPrice')}"></div>
+						<div class="col-4 text-danger" style="font-size: 12px;" th:if="${#fields.hasErrors('maxPrice')}" th:errors="*{maxPrice}">Name Error</div>
+						<div class="col-4 text-success" th:if="${!#fields.hasErrors('maxPrice')}"></div>
+					</div>
+					<div class="form-row mb-5">
+						<div class="col-4">
+
+						</div>
+						<div class="col-4" style="height: 75px;">
+							<button id="addLotBtnSubmit" class="btn btn-success btn-block btn-rounded h-100 p-1" type="submit" style="font-size: 24px;">
+								Разместить
+								<i class="fas fa-check bg-white rounded-circle text-success p-2"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		  	<div class="col-md-2">
+				<p class="text-left"> </p>
+			</div>
+		</div>
+	</div>
+	<th:block th:insert="base::scripts" />
+</body>
+</html>

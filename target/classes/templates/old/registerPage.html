@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Register</title>
+
+		<link th:href="@{../../static/css/bootstrap.min.css}" rel="stylesheet">
+		<link th:href="@{../../static/css/homePage-style.css}" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar navbar-dark bg-dark justify-content-between navbar-expand-sm">
+			<a class="navbar-brand" href="#">Reducto</a>
+			
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link" href="#">Browse</a>
+					<a class="nav-item nav-link" href="#">Place a lot</a>
+				</div>
+				<hr>
+				<div class="navbar-nav ml-auto">
+					<a class="nav-item nav-link active" href="#">Login</a>
+					<span class="navbar-text">or</span>
+					<a class="nav-item nav-link active" href="#">Register</a>
+				</div>
+			</div>
+		</nav>
+	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col d-none d-sm-block">l</div>
+				
+				<!---------------------------------->
+				
+				<div class="col-12 col-sm-10 col-md-8 col-lg-6" id="register">
+					<div class="row">
+						<div class="col pl-3 mt-3">
+							<h3>Register</h3>
+						</div>
+					</div>
+				
+					<form>
+						<div class="form-group form-row">
+							<label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control is-invalid" id="inputUsername" placeholder="Username" required>
+								<div class="invalid-feedback">
+									This username breaks given requirements.
+								</div>
+								<small id="usernameHelpBlock" class="form-text text-muted">
+									Your username must be 8-20 characters long, can contain letters and numbers, and must not contain spaces, special characters, or emoji.
+								</small>
+							</div>
+						</div>
+					
+						<div class="form-group form-row">
+							<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control is-invalid" id="inputPassword" placeholder="Password" required>
+								<div class="invalid-feedback">
+									This password breaks given requirements.
+								</div>
+								<small id="passwordHelpBlock" class="form-text text-muted">
+									Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+								</small>
+							</div>
+						</div>
+						
+						<div class="form-group form-row">
+							<label for="inputRepeatPassword" class="col-sm-2 col-form-label">Repeat Password</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control is-invalid" id="inputRepeatPassword" placeholder="Repeat Password" required>
+								<div class="invalid-feedback">
+									Password must be matching.
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group form-row">
+							<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="inputEmail" data-inputmask="'mask': '*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]'">
+								<small id="emailHelpBlock" class="form-text text-muted">
+									Format: email@example.com
+								</small>
+							</div>
+						</div>
+						
+						<div class="form-group form-row">
+							<label for="inputPhonenumber" class="col-sm-2 col-form-label">Phone number</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="inputPhonenumber" data-inputmask="'mask': '+7(999)999-99-99'">
+								<small id="phonenumberHelpBlock" class="form-text text-muted">
+									Format: +7(123)456-78-90
+								</small>
+							</div>
+						</div>
+						
+						<div class="form-group form-row">
+							<div class="form-check col ml-4">
+								<input class="form-check-input is-invalid" type="checkbox" id="agreeCheck" required>
+								<div class="invalid-tooltip">
+									Hey, you. Yes, you. Check that box, or else.
+								</div>
+								<label class="form-check-label" for="agreeCheck">
+									According to our <a href="#">terms of Service</a>, I hereby agree to sell my pitiful miserable soul to our lord and savior <s>Satan</s> The Data Gathering Algorithm.
+								</label>
+							</div>
+						</div>
+						
+						<div class="form-group form-row">
+							<div class="col"></div>
+							<div class="col-sm-6">
+								<button type="submit" class="btn btn-primary btn-block">Sign in</button>
+							</div>
+							<div class="col"></div>
+						</div>
+					</form>
+				</div>
+				
+				<!---------------------------------->
+				
+				<div class="col d-none d-sm-block">r</div>
+			</div>
+		</div>
+
+		<script th:src="@{../../static/js/jquery-3.2.1.slim.min.js}"></script>
+		<script th:src="@{../../static/js/bootstrap.min.js}"></script>
+		<script th:src="@{../../static/js/popper.min.js}"></script>
+		<script th:src="@{../../static/js/dist/jquery.inputmask.js}"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(":input").inputmask();
+			});
+		</script>
+	</body>
+</html>

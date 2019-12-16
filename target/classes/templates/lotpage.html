@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base::head(title='Home')"></head>
+<body>
+<th:block th:replace="base::navbar" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col d-none d-lg-block">l</div>
+
+        <div class="col-12 col-md-9 col-lg-7" id="cards">
+<!--            src="https://media1.tenor.com/images/b9c59363e7dd35cb7c19d8736b102d99/tenor.gif?itemid=13730968"-->
+            <!--            <th:block th:each="lot : ${lots}">-->
+                <div class="card mt-2" style="box-shadow: 3px 3px 5px LightGrey; height: 150px">
+                    <div class="row no-gutters">
+                        <div class="col-4" style="max-height:150px">
+                            <a href="#">
+                                <img class="card-img h-100"
+                                     th:src="${currentLot.photoUrl} ?: '/images/no-image-icon.png'"
+                                     style="object-fit: cover">
+                            </a>
+
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 class="card-title">
+                                                <a class="text-dark" href="#" th:text="${currentLot.name}">Card title</a>
+                                            </h5>
+                                        </div>
+                                        <div class="col-6">
+                                            <h5 class="card-title">
+                                                <a class="text-info" href="#"
+                                                   th:text="${currentLot.userDto.username}">Username</a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="card-text text-truncate" th:text="${currentLot.description}">
+                                    Some quick example text to build on the card title and
+                                    make up the bulk of the card's content.
+                                </p>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <span class="badge badge-primary" th:text="${currentLot.currentPrice} + ' р.'">100 p.</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <span class="badge badge-danger"
+                                                  th:text="${currentLot.category.name}"> Category </span>
+                                        </div>
+                                        <div class="col-4">
+                                            <span class="badge badge-info" th:text="${currentLot.creationTime}">Created at</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--            </th:block>-->
+        </div>
+
+        <!---------------------------------->
+
+        <div class="col d-none d-lg-block">r</div>
+    </div>
+
+
+</div>
+
+<th:block th:insert="base::scripts" />
+</body>
+</html>
